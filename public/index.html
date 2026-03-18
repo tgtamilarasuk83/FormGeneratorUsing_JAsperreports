@@ -3,202 +3,176 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Resume Form</title>
-
+<title>Resume Data Collection Form</title>
 <style>
-*{
+body{
+font-family:Arial, sans-serif;
+background:#f4f6f8;
 margin:0;
 padding:0;
-box-sizing:border-box;
-font-family:Arial,sans-serif;
 }
-
-body{
-background:#eef2f7;
-padding:30px;
-}
-
 .container{
-max-width:900px;
-margin:auto;
-background:#2c3e50;
-padding:30px;
+max-width:800px;
+margin:40px auto;
+background:#fff;
+padding:25px 35px;
 border-radius:12px;
-box-shadow:0 10px 25px rgba(0,0,0,0.2);
+box-shadow:0 0 10px rgba(0,0,0,0.1);
 }
-
-.inner-box{
-background:#ffffff;
-padding:30px;
-border-radius:10px;
-}
-
-h1{
+h1,h2{
 text-align:center;
-margin-bottom:20px;
-color:#2c3e50;
-}
-
-h2{
-margin-top:20px;
-margin-bottom:10px;
-color:#34495e;
-border-bottom:2px solid #eee;
-padding-bottom:5px;
-}
-
-label{
-display:block;
-margin-top:12px;
-font-weight:bold;
 color:#333;
 }
-
-input, textarea{
+.section{
+margin-bottom:20px;
+}
+label{
+font-weight:bold;
+display:block;
+margin-top:10px;
+}
+input,textarea{
 width:100%;
-padding:10px;
+padding:8px;
 margin-top:5px;
 border:1px solid #ccc;
-border-radius:6px;
-background:#fff;   /* WHITE INPUT FIELD */
-transition:0.3s;
+border-radius:5px;
 }
-
-input:focus, textarea:focus{
-border-color:#3498db;
-outline:none;
-box-shadow:0 0 5px rgba(52,152,219,0.3);
-}
-
 textarea{
 resize:none;
 }
-
 button{
-width:100%;
-margin-top:25px;
-padding:12px;
+margin-top:15px;
+padding:12px 20px;
+background:#007bff;
 border:none;
-border-radius:8px;
-background:#3498db;
 color:#fff;
 font-size:16px;
+border-radius:5px;
 cursor:pointer;
-transition:0.3s;
 }
-
 button:hover{
-background:#2980b9;
-}
-
-.section{
-margin-bottom:15px;
+background:#0056b3;
 }
 </style>
 </head>
-
 <body>
-
 <div class="container">
-<div class="inner-box">
-
-<h1>Resume Form</h1>
-
+<h1>Resume Information Form</h1>
 <form id="resumeForm">
-
 <div class="section">
 <h2>Personal Information</h2>
-
 <label>Full Name</label>
 <input type="text" name="fullname" required>
-
 <label>Mobile</label>
 <input type="text" name="mobile" required>
-
 <label>Email</label>
 <input type="email" name="email" required>
-
 <label>Address</label>
 <input type="text" name="address">
-
-<label>LinkedIn</label>
+<label>LinkedIn Profile</label>
 <input type="url" name="linkedin">
 </div>
 
 <div class="section">
 <h2>Objective</h2>
-<textarea name="objective" rows="3"></textarea>
+<textarea name="objective" rows="4" required></textarea>
 </div>
 
 <div class="section">
 <h2>Education</h2>
-<input type="text" name="degree" placeholder="Degree">
-<input type="text" name="college" placeholder="College">
-<input type="text" name="cgpa" placeholder="CGPA">
-<input type="text" name="duration" placeholder="Duration">
-<input type="text" name="hsc" placeholder="HSC">
-<input type="text" name="sslc" placeholder="SSLC">
+<label>Degree</label>
+<input type="text" name="degree">
+<label>College Name</label>
+<input type="text" name="college">
+<label>CGPA / Percentage</label>
+<input type="text" name="cgpa">
+<label>Study Duration</label>
+<input type="text" name="duration">
+<label>HSC School & Percentage</label>
+<input type="text" name="hsc">
+<label>SSLC School & Percentage</label>
+<input type="text" name="sslc">
 </div>
 
 <div class="section">
 <h2>Projects</h2>
-<textarea name="projects" rows="3"></textarea>
+<textarea name="projects" rows="4"></textarea>
 </div>
 
 <div class="section">
-<h2>Skills</h2>
-<textarea name="technical_skills" rows="2"></textarea>
-<input type="text" name="programming_languages" placeholder="Programming Languages">
-<input type="text" name="software_tools" placeholder="Software Tools">
+<h2>Area of Interest</h2>
+<textarea name="area_of_interest" rows="3"></textarea>
+</div>
+
+<div class="section">
+<h2>Technical Skills</h2>
+<textarea name="technical_skills" rows="3"></textarea>
+</div>
+
+<div class="section">
+<h2>Programming Languages</h2>
+<input type="text" name="programming_languages">
+</div>
+
+<div class="section">
+<h2>Software Tools</h2>
+<input type="text" name="software_tools">
 </div>
 
 <div class="section">
 <h2>Internships</h2>
-<textarea name="internships" rows="2"></textarea>
+<textarea name="internships" rows="3"></textarea>
 </div>
 
 <div class="section">
-<h2>Certifications</h2>
-<textarea name="certifications" rows="2"></textarea>
+<h2>Online Certifications</h2>
+<textarea name="certifications" rows="3"></textarea>
 </div>
 
-<button type="submit">Submit & Generate Resume</button>
-
+<button type="submit">Submit Resume</button>
 </form>
-</div>
 </div>
 
 <script>
 document.getElementById("resumeForm").addEventListener("submit", async (e) => {
-e.preventDefault();
+  e.preventDefault();
+  const data = Object.fromEntries(new FormData(e.target).entries());
+  
+  try {
+    const res = await fetch("http://localhost:5000/submit", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(data)
+    });
 
-const data = Object.fromEntries(new FormData(e.target).entries());
-
-try{
-const res = await fetch("http://localhost:5000/submit",{
-method:"POST",
-headers:{"Content-Type":"application/json"},
-body:JSON.stringify(data)
-});
-
-if(res.ok){
-const blob = await res.blob();
-const url = window.URL.createObjectURL(blob);
-const a = document.createElement("a");
-a.href = url;
-a.download = "resume.pdf";
-a.click();
-
-alert("✅ Resume generated!");
-e.target.reset();
-}else{
-alert("❌ Failed");
-}
-}catch(err){
-alert("❌ Server error");
-}
+    if (res.ok) {
+      // Get the PDF blob
+      const blob = await res.blob();
+      const filename = res.headers.get("content-disposition")?.split('filename=')[1]?.replace(/"/g, '') || "resume.pdf";
+      
+      // Create a download link
+      const url = window.URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = filename;
+      document.body.appendChild(a);
+      a.click();
+      window.URL.revokeObjectURL(url);
+      a.remove();
+      
+      alert("✅ Resume submitted successfully! PDF downloaded.");
+      e.target.reset();
+    } else {
+      const error = await res.json();
+      alert("❌ Error: " + (error.error || "Failed to submit resume"));
+    }
+  } catch (error) {
+    alert("❌ Network error: " + error.message);
+  }
 });
 </script>
-
 </body>
 </html>
+
+
