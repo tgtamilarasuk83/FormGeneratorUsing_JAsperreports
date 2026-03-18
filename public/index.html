@@ -4,110 +4,206 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Resume Data Collection Form</title>
+
 <style>
-body{
-font-family:Arial, sans-serif;
-background:#f4f6f8;
+*{
 margin:0;
 padding:0;
+box-sizing:border-box;
+font-family:'Segoe UI',sans-serif;
 }
+
+body{
+background:linear-gradient(135deg,#667eea,#764ba2);
+min-height:100vh;
+display:flex;
+align-items:center;
+justify-content:center;
+}
+
 .container{
-max-width:800px;
-margin:40px auto;
-background:#fff;
-padding:25px 35px;
-border-radius:12px;
-box-shadow:0 0 10px rgba(0,0,0,0.1);
+width:90%;
+max-width:900px;
+background:rgba(255,255,255,0.95);
+padding:30px;
+border-radius:15px;
+box-shadow:0 10px 30px rgba(0,0,0,0.2);
 }
-h1,h2{
+
+h1{
 text-align:center;
+margin-bottom:20px;
 color:#333;
 }
+
+h2{
+margin-bottom:10px;
+color:#555;
+border-left:4px solid #667eea;
+padding-left:10px;
+}
+
 .section{
 margin-bottom:20px;
 }
-label{
-font-weight:bold;
-display:block;
-margin-top:10px;
+
+.form-grid{
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:15px;
 }
+
+.full-width{
+grid-column:span 2;
+}
+
+label{
+font-size:14px;
+font-weight:600;
+color:#444;
+margin-bottom:3px;
+display:block;
+}
+
 input,textarea{
 width:100%;
-padding:8px;
-margin-top:5px;
-border:1px solid #ccc;
-border-radius:5px;
+padding:10px;
+border:1px solid #ddd;
+border-radius:8px;
+background:#fff;
+font-size:14px;
+transition:0.3s;
 }
+
+input:focus,textarea:focus{
+border-color:#667eea;
+outline:none;
+box-shadow:0 0 5px rgba(102,126,234,0.5);
+}
+
 textarea{
 resize:none;
 }
+
 button{
-margin-top:15px;
-padding:12px 20px;
-background:#007bff;
+width:100%;
+padding:14px;
+background:linear-gradient(135deg,#667eea,#764ba2);
 border:none;
 color:#fff;
 font-size:16px;
-border-radius:5px;
+font-weight:bold;
+border-radius:10px;
 cursor:pointer;
+transition:0.3s;
 }
+
 button:hover{
-background:#0056b3;
+transform:translateY(-2px);
+box-shadow:0 5px 15px rgba(0,0,0,0.2);
+}
+
+@media(max-width:768px){
+.form-grid{
+grid-template-columns:1fr;
+}
+.full-width{
+grid-column:span 1;
+}
 }
 </style>
 </head>
+
 <body>
+
 <div class="container">
 <h1>Resume Information Form</h1>
+
 <form id="resumeForm">
+
 <div class="section">
 <h2>Personal Information</h2>
+<div class="form-grid">
+<div>
 <label>Full Name</label>
 <input type="text" name="fullname" required>
+</div>
+
+<div>
 <label>Mobile</label>
 <input type="text" name="mobile" required>
+</div>
+
+<div>
 <label>Email</label>
 <input type="email" name="email" required>
-<label>Address</label>
-<input type="text" name="address">
+</div>
+
+<div>
 <label>LinkedIn Profile</label>
 <input type="url" name="linkedin">
 </div>
 
+<div class="full-width">
+<label>Address</label>
+<input type="text" name="address">
+</div>
+</div>
+</div>
+
 <div class="section">
 <h2>Objective</h2>
-<textarea name="objective" rows="4" required></textarea>
+<textarea name="objective" rows="3" required></textarea>
 </div>
 
 <div class="section">
 <h2>Education</h2>
+<div class="form-grid">
+<div>
 <label>Degree</label>
 <input type="text" name="degree">
+</div>
+
+<div>
 <label>College Name</label>
 <input type="text" name="college">
+</div>
+
+<div>
 <label>CGPA / Percentage</label>
 <input type="text" name="cgpa">
+</div>
+
+<div>
 <label>Study Duration</label>
 <input type="text" name="duration">
+</div>
+
+<div class="full-width">
 <label>HSC School & Percentage</label>
 <input type="text" name="hsc">
+</div>
+
+<div class="full-width">
 <label>SSLC School & Percentage</label>
 <input type="text" name="sslc">
+</div>
+</div>
 </div>
 
 <div class="section">
 <h2>Projects</h2>
-<textarea name="projects" rows="4"></textarea>
+<textarea name="projects" rows="3"></textarea>
 </div>
 
 <div class="section">
 <h2>Area of Interest</h2>
-<textarea name="area_of_interest" rows="3"></textarea>
+<textarea name="area_of_interest" rows="2"></textarea>
 </div>
 
 <div class="section">
 <h2>Technical Skills</h2>
-<textarea name="technical_skills" rows="3"></textarea>
+<textarea name="technical_skills" rows="2"></textarea>
 </div>
 
 <div class="section">
@@ -122,15 +218,16 @@ background:#0056b3;
 
 <div class="section">
 <h2>Internships</h2>
-<textarea name="internships" rows="3"></textarea>
+<textarea name="internships" rows="2"></textarea>
 </div>
 
 <div class="section">
 <h2>Online Certifications</h2>
-<textarea name="certifications" rows="3"></textarea>
+<textarea name="certifications" rows="2"></textarea>
 </div>
 
 <button type="submit">Submit Resume</button>
+
 </form>
 </div>
 
@@ -147,11 +244,9 @@ document.getElementById("resumeForm").addEventListener("submit", async (e) => {
     });
 
     if (res.ok) {
-      // Get the PDF blob
       const blob = await res.blob();
       const filename = res.headers.get("content-disposition")?.split('filename=')[1]?.replace(/"/g, '') || "resume.pdf";
       
-      // Create a download link
       const url = window.URL.createObjectURL(blob);
       const a = document.createElement("a");
       a.href = url;
@@ -172,7 +267,6 @@ document.getElementById("resumeForm").addEventListener("submit", async (e) => {
   }
 });
 </script>
+
 </body>
 </html>
-
-
