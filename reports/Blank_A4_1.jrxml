@@ -1,0 +1,125 @@
+<!-- Created with Jaspersoft Studio version 7.0.3.final using JasperReports Library version 7.0.3-41034ca841d452f3305ba55b9042260aaa1ab5dd  -->
+<jasperReport name="Resume_Report" language="java" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="a1234567-b89c-40de-ab12-3456789abcde">
+	<parameter name="fullname" class="java.lang.String"/>
+	<parameter name="mobile" class="java.lang.String"/>
+	<parameter name="email" class="java.lang.String"/>
+	<parameter name="address" class="java.lang.String"/>
+	<parameter name="linkedin" class="java.lang.String"/>
+	<parameter name="objective" class="java.lang.String"/>
+	<parameter name="degree" class="java.lang.String"/>
+	<parameter name="college" class="java.lang.String"/>
+	<parameter name="cgpa" class="java.lang.String"/>
+	<parameter name="duration" class="java.lang.String"/>
+	<parameter name="hsc" class="java.lang.String"/>
+	<parameter name="sslc" class="java.lang.String"/>
+	<parameter name="projects" class="java.lang.String"/>
+	<parameter name="area_of_interest" class="java.lang.String"/>
+	<parameter name="technical_skills" class="java.lang.String"/>
+	<parameter name="programming_languages" class="java.lang.String"/>
+	<parameter name="software_tools" class="java.lang.String"/>
+	<parameter name="internships" class="java.lang.String"/>
+	<parameter name="certifications" class="java.lang.String"/>
+	<query language="SQL"><![CDATA[SELECT 
+  rd.id,
+  TRIM(CONCAT(IFNULL(rd.fullname, ''))) AS fullname,
+  IFNULL(rd.mobile, '') AS mobile,
+  IFNULL(rd.email, '') AS email,
+  IFNULL(rd.address, '') AS address,
+  IFNULL(rd.linkedin, '') AS linkedin,
+  IFNULL(rd.objective, '') AS objective,
+  IFNULL(rd.degree, '') AS degree,
+  IFNULL(rd.college, '') AS college,
+  IFNULL(rd.cgpa, '') AS cgpa,
+  IFNULL(rd.duration, '') AS duration,
+  IFNULL(rd.hsc, '') AS hsc,
+  IFNULL(rd.sslc, '') AS sslc,
+  IFNULL(rd.projects, '') AS projects,
+  IFNULL(rd.area_of_interest, '') AS area_of_interest,
+  IFNULL(rd.technical_skills, '') AS technical_skills,
+  IFNULL(rd.programming_languages, '') AS programming_languages,
+  IFNULL(rd.software_tools, '') AS software_tools,
+  IFNULL(rd.internships, '') AS internships,
+  IFNULL(rd.certifications, '') AS certifications
+FROM resume_db.resume_details rd
+WHERE rd.fullname = $P{fullname};
+]]></query>
+	<title height="80">
+		<element kind="staticText" uuid="11111111-1111-1111-1111-111111111111" x="0" y="10" width="555" height="30" fontSize="18.0" bold="true" hTextAlign="Center" vTextAlign="Middle">
+			<text><![CDATA[RESUME - PERSONAL DATA]]></text>
+		</element>
+		<element kind="line" uuid="22222222-2222-2222-2222-222222222222" x="0" y="45" width="555" height="1"/>
+	</title>
+	<detail>
+		<band height="640">
+			<element kind="staticText" uuid="155342de-ceaa-4203-ae52-c37f006c3fca" x="0" y="10" width="150" height="20">
+				<text><![CDATA[Full Name:]]></text>
+			</element>
+			<element kind="textField" uuid="0658ac91-4e77-48c1-a3f9-15858b16f297" x="160" y="10" width="395" height="20">
+				<expression><![CDATA[$P{fullname}]]></expression>
+			</element>
+			<element kind="staticText" uuid="bfd39326-c91f-4fe3-a963-c678d280163d" x="0" y="35" width="150" height="20">
+				<text><![CDATA[Mobile:]]></text>
+			</element>
+			<element kind="textField" uuid="ef8821cf-01cf-4e7d-a323-deeebe29c347" x="160" y="35" width="395" height="20">
+				<expression><![CDATA[$P{mobile}]]></expression>
+			</element>
+			<element kind="staticText" uuid="3f960e2b-cf12-4d1f-8ecd-ceb937556055" x="0" y="60" width="150" height="20">
+				<text><![CDATA[Email:]]></text>
+			</element>
+			<element kind="textField" uuid="ab954536-50bd-4cfb-af36-025df0260bfd" x="160" y="60" width="395" height="20">
+				<expression><![CDATA[$P{email}]]></expression>
+			</element>
+			<element kind="staticText" uuid="6105ddac-5dbe-428e-a257-470317869f9a" x="0" y="85" width="150" height="20">
+				<text><![CDATA[Address:]]></text>
+			</element>
+			<element kind="textField" uuid="4112c602-6cd0-40c2-b0fb-347493ac8752" x="160" y="85" width="395" height="20">
+				<expression><![CDATA[$P{address}]]></expression>
+			</element>
+			<element kind="staticText" uuid="83d05b7c-b54f-46a3-8f84-f479fb71a8e3" x="0" y="110" width="150" height="20">
+				<text><![CDATA[LinkedIn:]]></text>
+			</element>
+			<element kind="textField" uuid="49da68d2-b815-421a-a8dc-43280ef2d811" x="160" y="110" width="395" height="20">
+				<expression><![CDATA[$P{linkedin}]]></expression>
+			</element>
+			<element kind="staticText" uuid="ad4de4a7-1842-4a1e-a2c2-af326fe58b81" x="0" y="145" width="555" height="20" fontSize="14.0" bold="true">
+				<text><![CDATA[Objective]]></text>
+			</element>
+			<element kind="textField" uuid="8d1aec20-a218-469f-b709-d0bb39f32d60" x="0" y="165" width="555" height="40" textAdjust="StretchHeight">
+				<expression><![CDATA[$P{objective}]]></expression>
+			</element>
+			<element kind="staticText" uuid="4e566058-5630-4d43-977b-e0bdbd718f40" x="0" y="215" width="555" height="20" fontSize="14.0" bold="true">
+				<text><![CDATA[Education]]></text>
+			</element>
+			<element kind="textField" uuid="779e10dc-cea4-48c4-8eef-e2af16bf7e22" x="0" y="235" width="555" height="20">
+				<expression><![CDATA["Degree: "+$P{degree}+" | College: "+$P{college}+" | CGPA: "+$P{cgpa}+" | Duration: "+$P{duration}]]></expression>
+			</element>
+			<element kind="textField" uuid="90e06447-be2b-4d5b-8211-e683e0b0e258" x="0" y="260" width="555" height="20">
+				<expression><![CDATA["HSC: "+$P{hsc}+" | SSLC: "+$P{sslc}]]></expression>
+			</element>
+			<element kind="staticText" uuid="861f0511-a587-42c6-ad4f-2079443cba9d" x="0" y="295" width="555" height="20" fontSize="14.0" bold="true">
+				<text><![CDATA[Projects]]></text>
+			</element>
+			<element kind="textField" uuid="34f2b840-297a-45f9-bd32-ed37dddeefc3" x="0" y="315" width="555" height="40" textAdjust="StretchHeight">
+				<expression><![CDATA[$P{projects}]]></expression>
+			</element>
+			<element kind="staticText" uuid="9400fab0-43ff-4ee5-82dc-e1d0b1d428db" x="0" y="365" width="555" height="20" fontSize="14.0" bold="true">
+				<text><![CDATA[Technical & Other Skills]]></text>
+			</element>
+			<element kind="textField" uuid="f2fd6411-232d-46b3-811b-77a50801767c" x="0" y="385" width="555" height="40" textAdjust="StretchHeight">
+				<expression><![CDATA["Technical: "+$P{technical_skills}+"\nLanguages: "+$P{programming_languages}+"\nTools: "+$P{software_tools}]]></expression>
+			</element>
+			<element kind="staticText" uuid="7151fcbd-a64f-4d53-9f31-ab754f3e58bb" x="0" y="440" width="555" height="20" fontSize="14.0" bold="true">
+				<text><![CDATA[Internships]]></text>
+			</element>
+			<element kind="textField" uuid="f9d078b6-8ff2-4cab-9904-38dfbe4a6ca5" x="0" y="460" width="555" height="40" textAdjust="StretchHeight">
+				<expression><![CDATA[$P{internships}]]></expression>
+			</element>
+			<element kind="staticText" uuid="b3e19ebe-77b5-419a-a1bd-3fd42553c180" x="0" y="510" width="555" height="20" fontSize="14.0" bold="true">
+				<text><![CDATA[Certifications]]></text>
+			</element>
+			<element kind="textField" uuid="f7789e70-da0a-404c-b337-57d0b42b2cd3" x="0" y="530" width="555" height="50" textAdjust="StretchHeight">
+				<expression><![CDATA[$P{certifications}]]></expression>
+			</element>
+		</band>
+	</detail>
+</jasperReport>

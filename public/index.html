@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Resume Form</title>
+
+<style>
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Arial,sans-serif;
+}
+
+body{
+background:#eef2f7;
+padding:30px;
+}
+
+.container{
+max-width:900px;
+margin:auto;
+background:#2c3e50;
+padding:30px;
+border-radius:12px;
+box-shadow:0 10px 25px rgba(0,0,0,0.2);
+}
+
+.inner-box{
+background:#ffffff;
+padding:30px;
+border-radius:10px;
+}
+
+h1{
+text-align:center;
+margin-bottom:20px;
+color:#2c3e50;
+}
+
+h2{
+margin-top:20px;
+margin-bottom:10px;
+color:#34495e;
+border-bottom:2px solid #eee;
+padding-bottom:5px;
+}
+
+label{
+display:block;
+margin-top:12px;
+font-weight:bold;
+color:#333;
+}
+
+input, textarea{
+width:100%;
+padding:10px;
+margin-top:5px;
+border:1px solid #ccc;
+border-radius:6px;
+background:#fff;   /* WHITE INPUT FIELD */
+transition:0.3s;
+}
+
+input:focus, textarea:focus{
+border-color:#3498db;
+outline:none;
+box-shadow:0 0 5px rgba(52,152,219,0.3);
+}
+
+textarea{
+resize:none;
+}
+
+button{
+width:100%;
+margin-top:25px;
+padding:12px;
+border:none;
+border-radius:8px;
+background:#3498db;
+color:#fff;
+font-size:16px;
+cursor:pointer;
+transition:0.3s;
+}
+
+button:hover{
+background:#2980b9;
+}
+
+.section{
+margin-bottom:15px;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+<div class="inner-box">
+
+<h1>Resume Form</h1>
+
+<form id="resumeForm">
+
+<div class="section">
+<h2>Personal Information</h2>
+
+<label>Full Name</label>
+<input type="text" name="fullname" required>
+
+<label>Mobile</label>
+<input type="text" name="mobile" required>
+
+<label>Email</label>
+<input type="email" name="email" required>
+
+<label>Address</label>
+<input type="text" name="address">
+
+<label>LinkedIn</label>
+<input type="url" name="linkedin">
+</div>
+
+<div class="section">
+<h2>Objective</h2>
+<textarea name="objective" rows="3"></textarea>
+</div>
+
+<div class="section">
+<h2>Education</h2>
+<input type="text" name="degree" placeholder="Degree">
+<input type="text" name="college" placeholder="College">
+<input type="text" name="cgpa" placeholder="CGPA">
+<input type="text" name="duration" placeholder="Duration">
+<input type="text" name="hsc" placeholder="HSC">
+<input type="text" name="sslc" placeholder="SSLC">
+</div>
+
+<div class="section">
+<h2>Projects</h2>
+<textarea name="projects" rows="3"></textarea>
+</div>
+
+<div class="section">
+<h2>Skills</h2>
+<textarea name="technical_skills" rows="2"></textarea>
+<input type="text" name="programming_languages" placeholder="Programming Languages">
+<input type="text" name="software_tools" placeholder="Software Tools">
+</div>
+
+<div class="section">
+<h2>Internships</h2>
+<textarea name="internships" rows="2"></textarea>
+</div>
+
+<div class="section">
+<h2>Certifications</h2>
+<textarea name="certifications" rows="2"></textarea>
+</div>
+
+<button type="submit">Submit & Generate Resume</button>
+
+</form>
+</div>
+</div>
+
+<script>
+document.getElementById("resumeForm").addEventListener("submit", async (e) => {
+e.preventDefault();
+
+const data = Object.fromEntries(new FormData(e.target).entries());
+
+try{
+const res = await fetch("http://localhost:5000/submit",{
+method:"POST",
+headers:{"Content-Type":"application/json"},
+body:JSON.stringify(data)
+});
+
+if(res.ok){
+const blob = await res.blob();
+const url = window.URL.createObjectURL(blob);
+const a = document.createElement("a");
+a.href = url;
+a.download = "resume.pdf";
+a.click();
+
+alert("✅ Resume generated!");
+e.target.reset();
+}else{
+alert("❌ Failed");
+}
+}catch(err){
+alert("❌ Server error");
+}
+});
+</script>
+
+</body>
+</html>
